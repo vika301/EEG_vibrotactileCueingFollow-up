@@ -306,3 +306,73 @@ class ScreenController():
 
             # Show the circle for 800 ms
             core.wait(trial_length)
+    def visual_oddball_switch(self, trials, oddball_ratio):
+        """
+        Function that runs the trials of the visual oddball stimulus.
+
+        Parameters
+        ----------
+        trials : int
+            The number of trials in this condition (visual).
+        oddball_ratio : float
+            The frequency of displaying the oddball stimulus.
+        """
+
+        print('-----------------------------------')
+        print('           VISUAL ODDBALL          ')
+        print('-----------------------------------\n')
+
+        total_trial_oddball = np.zeros(int(trials*(1-oddball_ratio)))#switch
+        total_trial_standard = np.ones(int(trials*(oddball_ratio)))#switch
+        total_trial = np.concatenate([total_trial_oddball, total_trial_standard])
+
+        for i in range(trials):
+            # fixation cross
+            self.fixation.draw()
+            self.win.flip()
+
+            # TRIGGER
+            classicbelt.p.setData(self.visual_trigger[2])
+            core.wait(0.01)
+            classicbelt.p.setData(0)
+
+            # always pause some miliseconds after the stimulus is shown
+            time.sleep(self.trial_break)
+
+            # Change the color of the circle. This will be 30% pink=oddball and
+            # 70% cyan for the baseline stimulus
+            # create random number between 0 and 1
+            np.random.shuffle(total_trial)
+            random_number = total_trial[0]
+
+            if random_number==1:
+                col = self.color_oddball
+            else:
+                col = self.color_standard
+
+            self.circle_stim = visual.Circle(self.win,
+                    radius = 0.07,
+                    fillColor = col,
+                    lineColor = col
+                )
+
+            total_trial = np.delete(total_trial, 0)
+
+
+            if col == "cyan":
+                trigger_visual = self.visual_trigger[1]
+            else:
+                trigger_visual = self.visual_trigger[0]
+
+            # Display the coloured circle on the screen
+            self.circle_stim.draw()
+            self.win.flip()
+
+            # Set the trigger
+            classicbelt.p.setData(trigger_visual)
+            core.wait(0.01)
+            classicbelt.p.setData(0)
+
+            # Show the circle for 800 ms
+            core.wait(trial_length)
+
