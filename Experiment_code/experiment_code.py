@@ -24,14 +24,14 @@ class Experiment():
                                                                parameter.ankle_swapped_trigger, parameter.vibration_strong,
                                                                parameter.vibration_weak, parameter.trial_break, parameter.trial_length)
         self.screen = visual_functions.ScreenController(parameter.circle_colors, parameter.trial_break,
-                                                        parameter.trial_length, parameter.visual_trigger)
+                                                        parameter.trial_length, parameter.visual_trigger,
+                                                        parameter.visual_swapped_trigger)
 
         # get the parameter from external file
         self.trials_per_block = parameter.trials
         self.repeat_blocks = parameter.identical_blocks
         self.oddball_ratio = parameter.oddball_ratio
-        self.color_standard = parameter.color_standard
-        self.color_oddball = parameter.color_oddball
+        self.circle_colors = parameter.circle_colors
 
         print("\nThe experiment includes:")
         print("Trials per block: ", self.trials_per_block)
@@ -72,7 +72,7 @@ class Experiment():
                 time.sleep(1.0)
                 self.screen.show_ready_screen()
                 self.screen.show_fixation_cross()
-                print('Execute block %i out of 4' % (i+1))
+                print('Execute block %i' % (i+1))
                 function(self.trials_per_block, self.oddball_ratio)
 
                 if i%2 == 0:

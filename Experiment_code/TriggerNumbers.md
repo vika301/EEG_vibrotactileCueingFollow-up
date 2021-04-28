@@ -1,4 +1,12 @@
-## Trigger code - Overview
+- vibro waist
+    + oddball (higher intensity): 1
+    + standard: 3
+    + break: 4
+
+- vibro wrist
+  + oddball (higher intensity): 5
+  + standard: 7
+  + break: 8
 
 - vibro ankle
   + oddball  (higher intensity): 9

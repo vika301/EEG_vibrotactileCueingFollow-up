@@ -2,11 +2,11 @@
 This file includes functions for the visual oddball part that used in the Experiment class.
 - set_up_screen: sets up the screen where the fixation cross and later the stimulus is dispayed
 - show_instructions : Shows instructions in the beginning and for every fingertapping task
-- show_ready_screen :
+- show_ready_screen
 - start_fingertapping_screen
 - show_thank_you
 - show_fixation_cross
-- visual_oddball :
+- visual_oddball
 """
 
 from psychopy import visual, event, data, logging, core
@@ -17,61 +17,60 @@ import csv
 from pybelt import classicbelt # we need this to set the trigger
 
 class ScreenController():
-"""
+    """
 
-Parameters
----------
-color_standard : str
-    The color of the frequently occuring circle stimulus.
-color_oddball : str
-    The color of the infrequently occuring circle stimulus.
-trial_break : float
-    Defines the length of the break between stimuli presentations in seconds.
-trial_length : float
-    Defines the length of the trial (each stimulus presentation) in seconds.
-visual_trigger : list
-    List of trigger codes for the stimuli in the visual oddball paradigm.
+    Parameters
+    ---------
+    circle_colors : list
+        List of strings that define color for the circle stimulus.
+    trial_break : float
+        Defines the length of the break between stimuli presentations in seconds.
+    trial_length : float
+        Defines the length of the trial (each stimulus presentation) in seconds.
+    visual_trigger : list
+        List of trigger codes for the stimuli in the visual oddball paradigm.
+    visual_swapped_trigger : list
+        List of trigger codes for the stimuli in the visual swapped oddball paradigm.
+    Attributes
+    ----------
+    circle_colors : list
+        Stores colors for the circle stimulus.
+    trial_break : float
+        Stores the length of the break between stimuli presentations in seconds.
+    trial_length : float
+        Stores the length of the trial (each stimulus presentation) in seconds.
+    visual_trigger : list
+        Stores trigger codes for the stimuli in the visual oddball paradigm.
+    visual_swapped_trigger : list
+        Stores trigger codes for the stimuli in the visual swapped oddball paradigm.
+    participant_ID : int
+        Stores the ID of the current participant.
+    fingertapping_file_name : str
+        Stores the name of the file that saves the fingertapping data.
+    win : Window (object of psychoPy library)
+        Represents the window that is monitoring stimuli, text and fixation cross.
+    globalClock : Clock (object of core package)
+        Stores the exact current time. Used for measuring reaction times in fingertapping.
 
-Attributes
-----------
-color_standard : str
-    Stores color of the frequently occuring circle stimulus.
-color_oddball : str
-    Stores color of the infrequently occuring circle stimulus.
-trial_break : float
-    Stores the length of the break between stimuli presentations in seconds.
-trial_length : float
-    Stores the length of the trial (each stimulus presentation) in seconds.
-visual_trigger : list
-    Stores trigger codes for the stimuli in the visual oddball paradigm.
-participant_ID : int
-    Stores the ID of the current participant.
-fingertapping_file_name : str
-    Stores the name of the file that saves the fingertapping data.
-win : Window (object of psychoPy library)
-    Represents the window that is monitoring stimuli, text and fixation cross.
-globalClock : Clock (object of core package)
-    Stores the exact current time. Used for measuring reaction times in fingertapping.
+    Visual stimuli and text that will be presented during the experiment have to be
+    defined in the constructor directly.
+    """
 
-Visual stimuli and text that will be presented during the experiment have to be
-defined in the constructor directly.
-"""
-
-    def __init__(self, color_standard, color_oddball, trial_break, trial_length, visual_trigger):
+    def __init__(self, circle_colors, trial_break, trial_length, visual_trigger, visual_swapped_trigger):
 
         # set the color of the visual stimuli
-        self.color_oddball = color_oddball
-        self.color_standard = color_standard
+        self.circle_colors = circle_colors
         self.trial_break = trial_break
         self.trial_length = trial_length
         self.visual_trigger = visual_trigger
+        self.visual_swapped_trigger = visual_swapped_trigger
 
         # Used for saving fingertapping data into file
         self.participant_ID = parameter.participant_ID
         self.fingertapping_file_name = parameter.fingertapping_file_name
 
         # set window
-        self.win = visual.Window([1920, 1080], units='height', winType='pyglet', fullscr=True)
+        self.win = visual.Window([800, 680], units='height', fullscr=False)
         self.globalClock = core.Clock()
 
         #------------------------
@@ -128,9 +127,9 @@ defined in the constructor directly.
         self.ready_screen.draw()
         self.win.flip()
         # Set trigger for showing ready screen
-        classicbelt.p.setData(21)
+        #classicbelt.p.setData(21)
         core.wait(0.01)
-        classicbelt.p.setData(0)
+        #classicbelt.p.setData(0)
         event.waitKeys()
 
     def start_fingertapping_screen(self, ft_round):
@@ -157,9 +156,9 @@ defined in the constructor directly.
         self.win.flip()
 
         # Set trigger for showing the sequence
-        classicbelt.p.setData(17)
+        #classicbelt.p.setData(17)
         core.wait(0.01)
-        classicbelt.p.setData(0)
+        #classicbelt.p.setData(0)
 
         tapping_Clock = core.Clock() #creates a clock time
         start_tapping_time = tapping_Clock.getTime() # gets time at this point
@@ -183,9 +182,9 @@ defined in the constructor directly.
 
                 if keyPressed:
                     print(keyPressed)
-                    classicbelt.p.setData(18)
+                    #classicbelt.p.setData(18)
                     core.wait(0.01)
-                    classicbelt.p.setData(0)
+                    #classicbelt.p.setData(0)
                     writer.writerow({header[0] : keyPressed[0][0],
                                      header[1] : keyPressed[0][1],
                                      header[2] : ft_round,
@@ -196,16 +195,16 @@ defined in the constructor directly.
         self.win.flip()
         core.wait(3)
 
-        classicbelt.p.setData(19)
+        #classicbelt.p.setData(19)
         core.wait(0.01)
-        classicbelt.p.setData(0)
+        #classicbelt.p.setData(0)
 
         self.pause_screen.draw()
         self.win.flip()
 
-        classicbelt.p.setData(20)
+        #classicbelt.p.setData(20)
         core.wait(0.01)
-        classicbelt.p.setData(0)
+        #classicbelt.p.setData(0)
         event.waitKeys()
 
 
@@ -233,9 +232,9 @@ defined in the constructor directly.
         self.win.flip()
 
         # TRIGGER
-        classicbelt.p.setData(16)
+        #classicbelt.p.setData(16)
         core.wait(0.01)
-        classicbelt.p.setData(0)
+        #classicbelt.p.setData(0)
 
 
     def visual_oddball(self, trials, oddball_ratio):
@@ -264,9 +263,9 @@ defined in the constructor directly.
             self.win.flip()
 
             # TRIGGER
-            classicbelt.p.setData(self.visual_trigger[2])
+            #classicbelt.p.setData(self.visual_trigger[2])
             core.wait(0.01)
-            classicbelt.p.setData(0)
+            #classicbelt.p.setData(0)
 
             # always pause some miliseconds after the stimulus is shown
             time.sleep(self.trial_break)
@@ -276,11 +275,13 @@ defined in the constructor directly.
             # create random number between 0 and 1
             np.random.shuffle(total_trial)
             random_number = total_trial[0]
+            color_oddball = self.circle_colors[1]
+            color_standard = self.circle_colors[0]
 
             if random_number==1:
-                col = self.color_oddball
+                col = color_oddball
             else:
-                col = self.color_standard
+                col = color_standard
 
             self.circle_stim = visual.Circle(self.win,
                     radius = 0.07,
@@ -301,9 +302,84 @@ defined in the constructor directly.
             self.win.flip()
 
             # Set the trigger
-            classicbelt.p.setData(trigger_visual)
+            #classicbelt.p.setData(trigger_visual)
             core.wait(0.01)
-            classicbelt.p.setData(0)
+            #classicbelt.p.setData(0)
 
             # Show the circle for 800 ms
-            core.wait(trial_length)
+            core.wait(self.trial_length)
+
+    def visual_swapped_oddball(self, trials, oddball_ratio):
+        """
+        Function that runs the trials of the visual oddball stimulus but with
+        swapped color for the odd/standard stimulus.
+
+        Parameters
+        ----------
+        trials : int
+            The number of trials in this condition (visual).
+        oddball_ratio : float
+            The frequency of displaying the oddball stimulus.
+        """
+
+        print('-------------------------------------------')
+        print('           VISUAL ODDBALL SWAPPED         ')
+        print('-------------------------------------------\n')
+
+        total_trial_standard = np.zeros(int(trials*(1-oddball_ratio)))
+        total_trial_oddball = np.ones(int(trials*(oddball_ratio)))
+        total_trial = np.concatenate([total_trial_oddball, total_trial_standard])
+
+        for i in range(trials):
+            # fixation cross
+            self.fixation.draw()
+            self.win.flip()
+
+            # TRIGGER
+            #classicbelt.p.setData(self.visual_trigger[2])
+            core.wait(0.01)
+            ##classicbelt.p.setData(0)
+
+            # always pause some miliseconds after the stimulus is shown
+            time.sleep(self.trial_break)
+
+            # Change the color of the circle. This will be 30% oddball and
+            # 70% standard for the baseline stimulus. The color depends on how
+            # you specify it in the parameter file.
+
+            # Create random number between 0 and 1 to select either oddball or
+            # standard.
+            np.random.shuffle(total_trial)
+            random_number = total_trial[0]
+            color_oddball = self.circle_colors[0]
+            color_standard = self.circle_colors[1]
+
+            if random_number==1:
+                col = color_oddball
+            else:
+                col = color_standard
+
+            self.circle_stim = visual.Circle(self.win,
+                    radius = 0.07,
+                    fillColor = col,
+                    lineColor = col
+                )
+
+            total_trial = np.delete(total_trial, 0)
+
+            if col == "cyan":
+                trigger_visual = self.visual_swapped_trigger[1]
+            else:
+                trigger_visual = self.visual_swapped_trigger[0]
+
+            # Display the coloured circle on the screen
+            self.circle_stim.draw()
+            self.win.flip()
+
+            # Set the trigger
+            ##classicbelt.p.setData(trigger_visual)
+            core.wait(0.01)
+            #classicbelt.p.setData(0)
+
+            # Show the circle for 800 ms
+            core.wait(self.trial_length)
