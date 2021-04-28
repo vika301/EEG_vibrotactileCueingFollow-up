@@ -17,45 +17,44 @@ import csv
 from pybelt import classicbelt # we need this to set the trigger
 
 class ScreenController():
-"""
-
-Parameters
----------
-color_standard : str
+    """
+    Parameters
+    ---------
+    color_standard : str
     The color of the frequently occuring circle stimulus.
-color_oddball : str
+    color_oddball : str
     The color of the infrequently occuring circle stimulus.
-trial_break : float
+    trial_break : float
     Defines the length of the break between stimuli presentations in seconds.
-trial_length : float
+    trial_length : float
     Defines the length of the trial (each stimulus presentation) in seconds.
-visual_trigger : list
+    visual_trigger : list
     List of trigger codes for the stimuli in the visual oddball paradigm.
 
-Attributes
-----------
-color_standard : str
+    Attributes
+    ----------
+    color_standard : str
     Stores color of the frequently occuring circle stimulus.
-color_oddball : str
+    color_oddball : str
     Stores color of the infrequently occuring circle stimulus.
-trial_break : float
+    trial_break : float
     Stores the length of the break between stimuli presentations in seconds.
-trial_length : float
+    trial_length : float
     Stores the length of the trial (each stimulus presentation) in seconds.
-visual_trigger : list
+    visual_trigger : list
     Stores trigger codes for the stimuli in the visual oddball paradigm.
-participant_ID : int
+    participant_ID : int
     Stores the ID of the current participant.
-fingertapping_file_name : str
+    fingertapping_file_name : str
     Stores the name of the file that saves the fingertapping data.
-win : Window (object of psychoPy library)
+    win : Window (object of psychoPy library)
     Represents the window that is monitoring stimuli, text and fixation cross.
-globalClock : Clock (object of core package)
+    globalClock : Clock (object of core package)
     Stores the exact current time. Used for measuring reaction times in fingertapping.
 
-Visual stimuli and text that will be presented during the experiment have to be
-defined in the constructor directly.
-"""
+    Visual stimuli and text that will be presented during the experiment have to be
+    defined in the constructor directly.
+    """
 
     def __init__(self, color_standard, color_oddball, trial_break, trial_length, visual_trigger):
 

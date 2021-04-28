@@ -1,6 +1,6 @@
 # Important parameters defined for the main experiment
 
-participant_ID = # e.g. 38
+participant_ID = input("Type in your participant_ID: ") # e.g. 38
 fingertapping_file_name = 'Fingertapping_Data/EEG_feelSpace_fingertapping_participant_' + str(participant_ID) + '.csv'
 
 trials = 200

@@ -11,7 +11,7 @@ It also handles the connection between the belt and the computer via USB.
 """
 
 from pybelt import classicbelt
-import parallel
+#import parallel
 import random, time
 import numpy as np
 
