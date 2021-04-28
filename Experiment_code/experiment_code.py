@@ -19,13 +19,12 @@ class Experiment():
         print('Start Experiment')
         print('----------------\n')
 
-        # get the vibrotactile functions
+        # get the vibrotactile and visual functions
         self.belt = vibrotactile_functions.VibrationController(parameter.ankle_vibromotor, parameter.ankle_trigger,
-                                                               parameter.wrist_vibromotor, parameter.wrist_trigger,
-                                                               parameter.waist_vibromotor_left, parameter.waist_vibromotor_right,
-                                                               parameter.waist_trigger, parameter.trial_break, parameter.trial_length)
-        self.screen = visual_functions.ScreenController(parameter.color_standard, parameter.color_oddball,
-                                                        parameter.trial_break, parameter.trial_length, parameter.visual_trigger)
+                                                               parameter.ankle_swapped_trigger, parameter.vibration_strong,
+                                                               parameter.vibration_weak, parameter.trial_break, parameter.trial_length)
+        self.screen = visual_functions.ScreenController(parameter.circle_colors, parameter.trial_break,
+                                                        parameter.trial_length, parameter.visual_trigger)
 
         # get the parameter from external file
         self.trials_per_block = parameter.trials
@@ -53,9 +52,9 @@ class Experiment():
         # The functions for each of the 4 block types are stored in a list,
         # enabling to iterate over and ranodmly execute them in the for-loop
         block_functions = [self.screen.visual_oddball,
-                           self.belt.vibrotactile_oddball_waist,
-                           self.belt.vibrotactile_oddball_wrist,
-                           self.belt.vibrotactile_oddball_ankle]
+                           self.screen.visual_swapped_oddball,
+                           self.belt.vibrotactile_oddball_ankle,
+                           self.belt.vibrotactile_swapped_oddball_ankle]
 
         # Keeping track of the fingertapping rounds
         count_fingertapping = 0
