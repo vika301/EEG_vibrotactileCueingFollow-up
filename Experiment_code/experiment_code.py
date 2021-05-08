@@ -19,24 +19,21 @@ class Experiment():
         print('Start Experiment')
         print('----------------\n')
 
-        # get the vibrotactile functions
+        # get the vibrotactile and visual functions
         self.belt = vibrotactile_functions.VibrationController(parameter.ankle_vibromotor, parameter.ankle_trigger,
-                                                               parameter.wrist_vibromotor, parameter.wrist_trigger,
-                                                               parameter.waist_vibromotor_left, parameter.waist_vibromotor_right,
-                                                               parameter.waist_trigger, parameter.trial_break, parameter.trial_length)
-        self.screen = visual_functions.ScreenController(parameter.color_standard, parameter.color_oddball,
-                                                        parameter.trial_break, parameter.trial_length, parameter.visual_trigger)
+                                                               parameter.ankle_swapped_trigger, parameter.vibration_strong,
+                                                               parameter.vibration_weak, parameter.trial_break, parameter.trial_length)
+        self.screen = visual_functions.ScreenController(parameter.circle_colors, parameter.trial_break,
+                                                        parameter.trial_length, parameter.visual_trigger,
+                                                        parameter.visual_swapped_trigger)
 
         # get the parameter from external file
         self.trials_per_block = parameter.trials
-        self.repeat_blocks = parameter.identical_blocks
         self.oddball_ratio = parameter.oddball_ratio
-        self.color_standard = parameter.color_standard
-        self.color_oddball = parameter.color_oddball
+        self.circle_colors = parameter.circle_colors
 
         print("\nThe experiment includes:")
         print("Trials per block: ", self.trials_per_block)
-        print("Repeats identical blocks %i times.\n" % (self.repeat_blocks))
 
     def start(self):
         """Function that starts the experiment"""
@@ -53,27 +50,36 @@ class Experiment():
         # The functions for each of the 4 block types are stored in a list,
         # enabling to iterate over and ranodmly execute them in the for-loop
         block_functions = [self.screen.visual_oddball,
-                           self.belt.vibrotactile_oddball_waist,
-                           self.belt.vibrotactile_oddball_wrist,
-                           self.belt.vibrotactile_oddball_ankle]
+                           self.screen.visual_swapped_oddball,
+                           self.belt.vibrotactile_oddball_ankle,
+                           self.belt.vibrotactile_swapped_oddball_ankle]
 
         # Keeping track of the fingertapping rounds
         count_fingertapping = 0
 
+        # Shuffle blocks
+        random.shuffle(block_functions)
+
         # Execute all the blocks twice. Before executing another time,
         # all other blocks should have been run at least once.
-        for _ in range(self.repeat_blocks):
+        remaining_trials =block_functions[:]
+        
+        # No direct repition of the same trial
+        while len(block_functions)!= 8:
+            next_trial = random.choice(remaining_trials)
+            while next_trial == block_functions[-1]:
+                next_trial = random.choice(remaining_trials)
+            block_functions.append(next_trial)
+            remaining_trials.remove(next_trial)
+        
 
-            # Shuffle blocks
-            random.shuffle(block_functions)
-            print('Start next block section!')
-
-            # Start new block
-            for i, function in enumerate(block_functions):
+        # Shuffle threw blocks
+        for i, function in enumerate(block_functions):
+                print('Start next block section!')
                 time.sleep(1.0)
                 self.screen.show_ready_screen()
                 self.screen.show_fixation_cross()
-                print('Execute block %i out of 4' % (i+1))
+                print('Execute block %i' % (i+1))
                 function(self.trials_per_block, self.oddball_ratio)
 
                 if i%2 == 0:
@@ -83,7 +89,7 @@ class Experiment():
                     count_fingertapping += 1
                     self.screen.start_fingertapping_screen(count_fingertapping)
 
-                print('')
+                print('\n')
 
         # At the very end of the experiment, disconnect the belt
         self.belt.disconnect_belt()
