@@ -93,7 +93,7 @@ class ScreenController():
 
         self.pause_screen = visual.TextStim(self.win,
                  text='Short Break :)\nPlease inform the experimenter', height=0.05)
-                   
+
 
         self.thank_you = visual.TextStim(self.win, text='Thanks for participating! :)', height=0.05)
 
@@ -128,9 +128,9 @@ class ScreenController():
         self.ready_screen.draw()
         self.win.flip()
         # Set trigger for showing ready screen
-        #classicbelt.p.setData(21)
+        classicbelt.p.setData(21)
         core.wait(0.01)
-        #classicbelt.p.setData(0)
+        classicbelt.p.setData(0)
         event.waitKeys()
 
     def start_fingertapping_screen(self, ft_round):
@@ -157,9 +157,9 @@ class ScreenController():
         self.win.flip()
 
         # Set trigger for showing the sequence
-        #classicbelt.p.setData(17)
+        classicbelt.p.setData(17)
         core.wait(0.01)
-        #classicbelt.p.setData(0)
+        classicbelt.p.setData(0)
 
         tapping_Clock = core.Clock() #creates a clock time
         start_tapping_time = tapping_Clock.getTime() # gets time at this point
@@ -183,9 +183,9 @@ class ScreenController():
 
                 if keyPressed:
                     print(keyPressed)
-                    #classicbelt.p.setData(18)
+                    classicbelt.p.setData(18)
                     core.wait(0.01)
-                    #classicbelt.p.setData(0)
+                    classicbelt.p.setData(0)
                     writer.writerow({header[0] : keyPressed[0][0],
                                      header[1] : keyPressed[0][1],
                                      header[2] : ft_round,
@@ -196,16 +196,16 @@ class ScreenController():
         self.win.flip()
         core.wait(3)
 
-        #classicbelt.p.setData(19)
+        classicbelt.p.setData(19)
         core.wait(0.01)
-        #classicbelt.p.setData(0)
+        classicbelt.p.setData(0)
 
         self.pause_screen.draw()
         self.win.flip()
 
-        #classicbelt.p.setData(20)
+        classicbelt.p.setData(20)
         core.wait(0.01)
-        #classicbelt.p.setData(0)
+        classicbelt.p.setData(0)
         event.waitKeys()
 
 
@@ -233,9 +233,9 @@ class ScreenController():
         self.win.flip()
 
         # TRIGGER
-        #classicbelt.p.setData(16)
+        classicbelt.p.setData(16)
         core.wait(0.01)
-        #classicbelt.p.setData(0)
+        classicbelt.p.setData(0)
 
 
     def visual_oddball(self, trials, oddball_ratio):
@@ -264,9 +264,9 @@ class ScreenController():
             self.win.flip()
 
             # TRIGGER
-            #classicbelt.p.setData(self.visual_trigger[2])
+            classicbelt.p.setData(self.visual_trigger[2])
             core.wait(0.01)
-            #classicbelt.p.setData(0)
+            classicbelt.p.setData(0)
 
             # always pause some miliseconds after the stimulus is shown
             time.sleep(self.trial_break)
@@ -303,9 +303,9 @@ class ScreenController():
             self.win.flip()
 
             # Set the trigger
-            #classicbelt.p.setData(trigger_visual)
+            classicbelt.p.setData(trigger_visual)
             core.wait(0.01)
-            #classicbelt.p.setData(0)
+            classicbelt.p.setData(0)
 
             # Show the circle for 800 ms
             core.wait(self.trial_length)
@@ -337,9 +337,9 @@ class ScreenController():
             self.win.flip()
 
             # TRIGGER
-            #classicbelt.p.setData(self.visual_trigger[2])
+            classicbelt.p.setData(self.visual_swapped_trigger[2])
             core.wait(0.01)
-            ##classicbelt.p.setData(0)
+            classicbelt.p.setData(0)
 
             # always pause some miliseconds after the stimulus is shown
             time.sleep(self.trial_break)
@@ -378,9 +378,9 @@ class ScreenController():
             self.win.flip()
 
             # Set the trigger
-            ##classicbelt.p.setData(trigger_visual)
+            classicbelt.p.setData(trigger_visual)
             core.wait(0.01)
-            #classicbelt.p.setData(0)
+            classicbelt.p.setData(0)
 
             # Show the circle for 800 ms
             core.wait(self.trial_length)

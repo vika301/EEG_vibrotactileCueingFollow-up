@@ -10,7 +10,7 @@ It also handles the connection between the belt and the computer via USB.
 """
 
 from pybelt import classicbelt
-#import parallel
+import parallel
 import random, time
 import numpy as np
 from psychopy import core
@@ -207,6 +207,6 @@ class VibrationController():
             self.belt_controller.stopVibration()
 
         # Trigger break
-        #classicbelt.p.setData(trigger_codes[2])
+        classicbelt.p.setData(trigger_codes[2])
         core.wait(0.01)
-        #classicbelt.p.setData(0)
+        classicbelt.p.setData(0)
