@@ -2,19 +2,20 @@
 
 % Enter from where you want to load the data of which you want to compute
 % the difference waves
-dataload_path = 'C:\Users\rosah\Desktop\Rosas Unikrams\6th semester from Asus\Parkinson study project\Thesis things\EEG_feelSpace\EEG_data_feelSpace\CleanedDataAnalysis\WithoutBaseline\Averaged'
+%%dataload_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp/averaged_files'
+dataload_path = 'C:\Users\Victoria Benhauser\Desktop\10 Semester\OddballTactile\EEG_vibrotactileCueingFollow-up\averaged_files'
 cd(dataload_path);
 
 % load all data to plot it
 % note that the trials will be indicated as nr of subjects now (due to eeg_checkset)
-EEG_ankle_swapped_odd = pop_loadset('EEG_cleaned_ankle_swapped_odd_stats.set');
-EEG_ankle_swapped_stand = pop_loadset('EEG_cleaned_ankle_swapped_stand_stats.set');
-EEG_visual_odd = pop_loadset('EEG_cleaned_visual_odd_stats.set');
-EEG_visual_stand = pop_loadset('EEG_cleaned_visual_stand_stats.set');
-EEG_ankle_odd = pop_loadset('EEG_cleaned_ankle_odd_stats.set');
-EEG_ankle_stand = pop_loadset('EEG_cleaned_ankle_stand_stats.set');
-EEG_visual_swapped_odd = pop_loadset('EEG_cleaned_visual_swapped_odd_stats.set');
-EEG_visual_swapped_stand = pop_loadset('EEG_cleaned_visual_swapped_stand_stats.set');
+EEG_ankle_swapped_odd = pop_loadset('EEG_autocleaned_ankle_swapped_odd_stats.set');
+EEG_ankle_swapped_stand = pop_loadset('EEG_autocleaned_ankle_swapped_stand_stats.set');
+EEG_visual_odd = pop_loadset('EEG_autocleaned_visual_odd_stats.set');
+EEG_visual_stand = pop_loadset('EEG_autocleaned_visual_stand_stats.set');
+EEG_ankle_odd = pop_loadset('EEG_autocleaned_ankle_odd_stats.set');
+EEG_ankle_stand = pop_loadset('EEG_autocleaned_ankle_stand_stats.set');
+EEG_visual_swapped_odd = pop_loadset('EEG_autocleaned_visual_swapped_odd_stats.set');
+EEG_visual_swapped_stand = pop_loadset('EEG_autocleaned_visual_swapped_stand_stats.set');
 
 %% Chunk 2 - compute the difference waves
 
@@ -33,7 +34,7 @@ visual_swapped_difference_sem = EEG_visual_swapped_odd.sem - EEG_visual_swapped_
 %% Chunk 3 - Plot ERP difference wave for the Fz and Pz electrode
 
 % our x axis
-time_window = linspace(-200, 600, 205);
+time_window = linspace(-200, 800, 512);
 % plot color
 diff_wave_colour = [0.8500 0.3250 0.0980];
 % choose an electrode 

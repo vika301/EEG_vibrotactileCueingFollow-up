@@ -1,29 +1,26 @@
 %% Chunk 1
-%%%addpath(genpath('/work/vbenhauser/eeglab2021.0'))
-addpath(genpath('C:\Users\Victoria Benhauser\Documents\MATLAB'))
+addpath(genpath('/work/vbenhauser/eeglab2021.0'))
 
 % In this file we are averaging all trials that belong to the same
 % condition: wrist, waist, ankle, visual and each oddball/standard 
 
 % Where do you want to save the averaged files?
-%%%saving_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp'
-saving_path = 'C:\Users\Victoria Benhauser\Desktop\10 Semester\OddballTactile\AnalysisData'
+saving_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp'
 
 
 % Enter from where you want to load the data that you want to average
-%%%dataload_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp/sorted_by_condition'
-dataload_path = 'C:\Users\Victoria Benhauser\Desktop\10 Semester\OddballTactile\AnalysisData\sorted_by_condition'
+dataload_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp/sorted_by_condition'
 cd(dataload_path);
 
 % Load 8 files to have the most important information for every condition
 % Empty the data field, such that we can fill it with the averaged data
 % later
-EEG_visual_swapped_odd = pop_loadset('autocleaned_VibrotactFollowUpID10_cleaned_visual_odd.set');
-EEG_visual_swapped_odd.data = [];
-EEG_visual_swapped_odd.epoch = [];
-EEG_visual_swapped_stand = pop_loadset('autocleaned_VibrotactFollowUpID10_cleaned_visual_stand.set');
-EEG_visual_swapped_stand.data = [];
-EEG_visual_swapped_stand.epoch = [];
+EEG_visual_odd = pop_loadset('autocleaned_VibrotactFollowUpID10_cleaned_visual_odd.set');
+EEG_visual_odd.data = [];
+EEG_visual_odd.epoch = [];
+EEG_visual_stand = pop_loadset('autocleaned_VibrotactFollowUpID10_cleaned_visual_stand.set');
+EEG_visual_stand.data = [];
+EEG_visual_stand.epoch = [];
 EEG_ankle_swapped_odd = pop_loadset('autocleaned_VibrotactFollowUpID10_cleaned_ankle_swapped_odd.set');
 EEG_ankle_swapped_odd.data = [];
 EEG_ankle_swapped_odd.epoch = [];
@@ -46,19 +43,34 @@ EEG_visual_swapped_stand.epoch = [];
 % We will loop through all 8 conditions
 % Find the condtion-separated datafiles and empty the data
 
-%Vic: restructure below like this:
-%DirList = dir('**/*visual_odd.set');
-%DirList= {DirList.name};
+all_visual_odd = dir('**/*visual_odd.set'); 
+all_visual_odd = {all_visual_odd.name}; 
+
+all_visual_stand = dir('**/*visual_stand.set'); 
+all_visual_stand = {all_visual_stand.name}; 
+
+all_ankle_swapped_odd = dir('**/*ankle_swapped_odd.set'); 
+all_ankle_swapped_odd = {all_ankle_swapped_odd.name}; 
 
 
-all_visual_odd = {dir('**/*visual_odd.set').name}; 
-all_visual_stand = {dir('**/*visual_stand.set').name}; 
-all_ankle_swapped_odd = {dir('**/*ankle_swapped_odd.set').name}; 
-all_ankle_swapped_stand = {dir('**/*ankle_swapped_stand.set').name}; 
-all_ankle_odd = {dir('**/*ankle_odd.set').name}; 
-all_ankle_stand = {dir('**/*ankle_stand.set').name}; 
-all_visual_swapped_odd = {dir('**/*visual_swapped_odd.set').name}; 
-all_visual_swapped_stand = {dir('**/*visual_swapped_stand.set').name}; 
+all_ankle_swapped_stand = dir('**/*ankle_swapped_stand.set'); 
+all_ankle_swapped_stand = {all_ankle_swapped_stand.name}; 
+
+
+all_ankle_odd = dir('**/*ankle_odd.set'); 
+all_ankle_odd = {all_ankle_odd.name}; 
+
+
+all_ankle_stand = dir('**/*ankle_stand.set'); 
+all_ankle_stand = {all_ankle_stand.name}; 
+
+
+all_visual_swapped_odd = dir('**/*visual_swapped_odd.set'); 
+all_visual_swapped_odd = {all_visual_swapped_odd.name}; 
+
+all_visual_swapped_stand = dir('**/*visual_swapped_stand.set'); 
+all_visual_swapped_stand = {all_visual_swapped_stand.name}; 
+
 
 
 %% Chunk 2 - looping through the data and average over trials
@@ -96,7 +108,7 @@ end
 % The data now has the shape of (electrodes x data points x subjects)
 % Save the files of every condition
 cleaned_filename = 'EEG_autocleaned';
-EEG_visual_odd.subjects = 22;
+EEG_visual_odd.subjects = 17;
 % the visual condition
 pop_saveset(EEG_visual_odd, 'filename', sprintf('%s_visual_odd.set', cleaned_filename), 'filepath', saving_path);
 pop_saveset(EEG_visual_stand, 'filename', sprintf('%s_visual_stand.set', cleaned_filename), 'filepath', saving_path);

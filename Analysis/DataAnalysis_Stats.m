@@ -4,13 +4,15 @@
 % standard error mean of all subjects
 
 % Enter from where you want to load the data that you want to analyse
-dataload_path = 'C:\Users\rosah\Desktop\Rosas Unikrams\6th semester from Asus\Parkinson study project\Thesis things\EEG_feelSpace\EEG_data_feelSpace\BAthesis_PilotAnalysis\Averaged'
+dataload_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp/averaged_files'
 cd(dataload_path);
 
 %% Chunk 2 - loop over averaged data and compute mean, std, sem
 
 % Find all 8 data sets
-all_files = {dir('**/*.set').name};
+all_files = dir('**/*.set');
+all_files = {all_files.name};
+
 
 % Loop through all datasets with every condition 
 for file = all_files
