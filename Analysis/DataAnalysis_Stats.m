@@ -4,7 +4,8 @@
 % standard error mean of all subjects
 
 % Enter from where you want to load the data that you want to analyse
-dataload_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp/averaged_files'
+%dataload_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp/averaged_files'
+dataload_path = 'C:\Users\Victoria Benhauser\Desktop\10 Semester\OddballTactile\AnalysisData\averaged'
 cd(dataload_path);
 
 %% Chunk 2 - loop over averaged data and compute mean, std, sem

@@ -1,15 +1,19 @@
 %% Chunk 1
-addpath(genpath('/work/vbenhauser/eeglab2021.0'))
+%addpath(genpath('/work/vbenhauser/eeglab2021.0'))
+addpath(genpath('C:\Users\Victoria Benhauser\Documents\pack\eeglab2021_0'))
 
 % In this file we are averaging all trials that belong to the same
 % condition: wrist, waist, ankle, visual and each oddball/standard 
 
 % Where do you want to save the averaged files?
-saving_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp'
+%saving_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp'
+saving_path = 'C:\Users\Victoria Benhauser\Desktop\10 Semester\OddballTactile\AnalysisData'
 
 
 % Enter from where you want to load the data that you want to average
-dataload_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp/sorted_by_condition'
+%dataload_path = '/net/store/nbp/projects/EEG_Tactile/EEG_Tactile_FollowUp/sorted_by_condition'
+dataload_path = 'C:\Users\Victoria Benhauser\Desktop\10 Semester\OddballTactile\AnalysisData\sortedByCondition'
+
 cd(dataload_path);
 
 % Load 8 files to have the most important information for every condition
@@ -108,7 +112,7 @@ end
 % The data now has the shape of (electrodes x data points x subjects)
 % Save the files of every condition
 cleaned_filename = 'EEG_autocleaned';
-EEG_visual_odd.subjects = 17;
+EEG_visual_odd.subjects = 30 ;
 % the visual condition
 pop_saveset(EEG_visual_odd, 'filename', sprintf('%s_visual_odd.set', cleaned_filename), 'filepath', saving_path);
 pop_saveset(EEG_visual_stand, 'filename', sprintf('%s_visual_stand.set', cleaned_filename), 'filepath', saving_path);
